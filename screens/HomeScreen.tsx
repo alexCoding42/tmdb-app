@@ -12,25 +12,45 @@ import {
   Bars3CenterLeftIcon,
   MagnifyingGlassIcon,
 } from 'react-native-heroicons/outline';
-import { fetchTrendingMovies } from '../api/moviedb';
+import {
+  fetchTopRatedMovies,
+  fetchTrendingMovies,
+  fetchUpcomingMovies,
+} from '../api/moviedb';
 import TrendingMovies from '../components/trendingMovies';
+
 import Loading from '../components/loading';
 import { styles } from '../theme';
+import MovieList from '../components/movieList';
 
 const ios = Platform.OS === 'ios';
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [topRated, setTopRated] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getTrendingMovies();
+    getUpcomingMovies();
+    getTopRatedMovies();
   }, []);
 
   const getTrendingMovies = async () => {
     const data = await fetchTrendingMovies();
     if (data && data.results) setTrending(data.results);
     setLoading(false);
+  };
+
+  const getUpcomingMovies = async () => {
+    const data = await fetchUpcomingMovies();
+    if (data && data.results) setUpcoming(data.results);
+  };
+
+  const getTopRatedMovies = async () => {
+    const data = await fetchTopRatedMovies();
+    if (data && data.results) setTopRated(data.results);
   };
 
   return (
@@ -56,6 +76,14 @@ export default function HomeScreen() {
         >
           {/* Trending Movies Carousel */}
           {trending.length > 0 && <TrendingMovies data={trending} />}
+          {/* upcoming movies row */}
+          {upcoming.length > 0 && (
+            <MovieList title='Upcoming' data={upcoming} />
+          )}
+          {/* top rated movies row */}
+          {topRated.length > 0 && (
+            <MovieList title='Top Rated' data={topRated} />
+          )}
         </ScrollView>
       )}
     </View>

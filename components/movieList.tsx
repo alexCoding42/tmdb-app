@@ -13,7 +13,13 @@ import { fallbackMoviePoster, image185 } from '../api/moviedb';
 import { styles } from '../theme';
 const { width, height } = Dimensions.get('window');
 
-export default function MovieList({ title, hideSeeAll, data }) {
+interface MovieListProps {
+  title: string;
+  hideSeeAll?: boolean;
+  data: any;
+}
+
+export default function MovieList({ title, hideSeeAll, data }: MovieListProps) {
   const navigation = useNavigation();
   return (
     <View className='mb-8 space-y-4'>
