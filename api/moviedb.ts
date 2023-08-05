@@ -38,7 +38,7 @@ export const fallbackMoviePoster =
 export const fallbackPersonImage =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUiF-YGjavA63_Au8jQj7zxnFxS_Ay9xc6pxleMqCxH92SzeNSjBTwZ0l61E4B3KTS7o&usqp=CAU';
 
-const apiCall = async (endpoint, params) => {
+const apiCall = async (endpoint: string, params?: undefined) => {
   const options = {
     method: 'GET',
     url: endpoint,
