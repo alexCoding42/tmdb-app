@@ -17,11 +17,11 @@ import {
   fetchTrendingMovies,
   fetchUpcomingMovies,
 } from '../api/moviedb';
-import TrendingMovies from '../components/trendingMovies';
-
-import Loading from '../components/loading';
-import { styles } from '../theme';
 import MovieList from '../components/movieList';
+import TrendingMovies from '../components/trendingMovies';
+import Loading from '../components/loading';
+import { useNavigation } from '@react-navigation/native';
+import { styles } from '../theme';
 
 const ios = Platform.OS === 'ios';
 
@@ -30,6 +30,8 @@ export default function HomeScreen() {
   const [upcoming, setUpcoming] = useState([]);
   const [topRated, setTopRated] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getTrendingMovies();
@@ -62,7 +64,7 @@ export default function HomeScreen() {
           <Text className='text-3xl font-bold text-white'>
             <Text style={styles.text}>M</Text>ovies
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
           </TouchableOpacity>
         </View>
